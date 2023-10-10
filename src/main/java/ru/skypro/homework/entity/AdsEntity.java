@@ -9,17 +9,13 @@ import javax.persistence.GenerationType;
 
 @Data
 @Entity
-public class Ads {
+public class AdsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int pk;
-
-
     String authorFirstName;
     String authorLastName;
-
     String email;
-
     String phone;
     String image;
     String title;
