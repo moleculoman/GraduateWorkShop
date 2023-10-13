@@ -1,0 +1,8 @@
+<root>
+    <item name='java.util.Optional java.util.Optional&lt;T&gt; ofNullable(T)'>
+        <annotation name='org.jetbrains.annotations.Contract'>
+            <val name="value" val="&quot;!null-&gt;!null&quot;"/>
+            <val name="pure" val="true"/>
+        </annotation>
+    </item>
+</root>
