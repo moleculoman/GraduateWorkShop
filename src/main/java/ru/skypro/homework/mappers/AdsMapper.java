@@ -15,14 +15,18 @@ public interface AdsMapper {
     @Mapping(target = "pk", source = "id")
     AdDTO toAdsDto(AdsEntity ads);
 
-    List<AdsDTO> toDtos(List<AdsDTO> adsList);
+    List<AdDTO> toDtos(List<AdsEntity> adsList);
 
     @Mapping(target = "pk", source = "id")
-    @Mapping(target = "authorFirstName",source = "userEntity.firstName")
-    @Mapping(target = "authorLastName",source = "userEntity.lastName")
-    @Mapping(target = "email",source = "userEntity.email")
-    @Mapping(target = "phone",source = "userEntity.phone")
-    FullAdDTO toFullAds(AdsEntity ads);
+    @Mapping(target = "authorFirstName", source = "userEntity.firstName")
+    @Mapping(target = "authorLastName", source = "userEntity.lastName")
+    @Mapping(target = "email", source = "userEntity.email")
+    @Mapping(target = "phone", source = "userEntity.phone")
+    default FullAdDTO toFullAds(List<AdsEntity> ads) {
+        return null;
+    }
 
-    void updateAds(CreateAdsDTO createAds, @MappingTarget AdsEntity ads);
+    default void updateAds(CreateAdsDTO createAds, @MappingTarget List<AdsEntity> ads) {
+
+    }
 }

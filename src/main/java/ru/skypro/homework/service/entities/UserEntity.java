@@ -5,8 +5,6 @@ import lombok.experimental.FieldDefaults;
 import ru.skypro.homework.dto.usersDTO.Role;
 import javax.persistence.*;
 
-
-
 @Data
 @Entity(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
