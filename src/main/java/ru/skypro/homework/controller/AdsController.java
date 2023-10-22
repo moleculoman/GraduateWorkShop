@@ -24,7 +24,7 @@ public class AdsController {
             @ApiResponse(responseCode = "200", description = "OK")
     })
     @GetMapping
-    public ResponseEntity<AdsDTO> getAllAds() {
+    public ResponseEntity<AdDTO> getAllAds() {
         return ResponseEntity.ok(adsService.getAllAds());
     }
 
@@ -87,7 +87,7 @@ public class AdsController {
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
     @GetMapping("/me")
-    public ResponseEntity<AdsDTO> getAdsMe(Authentication authentication) {
+    public ResponseEntity<AdDTO> getAdsMe(Authentication authentication) {
         return ResponseEntity.ok(adsService.getAdsMe(authentication.getName()));
     }
 
