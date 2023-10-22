@@ -3,22 +3,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
+import org.springframework.http.*;
+import org.springframework.security.core.*;
 import org.springframework.web.multipart.*;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.skypro.homework.dto.adsDTO.AdsDTO;
 import ru.skypro.homework.dto.usersDTO.*;
-import ru.skypro.homework.service.AdsService;
-import ru.skypro.homework.service.UserService;
+import ru.skypro.homework.service.*;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RestController
-@RequestMapping("/ads")
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 

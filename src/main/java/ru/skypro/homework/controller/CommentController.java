@@ -4,24 +4,23 @@ package ru.skypro.homework.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.*;
 import lombok.experimental.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.adsDTO.*;
-import ru.skypro.homework.service.AdsService;
+import ru.skypro.homework.service.*;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RestController
 @RequestMapping("/ads")
 public class CommentController {
-    private final AdsService adsService;
+    private final CommentService commentService;
 
     @Operation(summary = "Получение комментариев объявления")
     @GetMapping("/{id}/comments")
     public ResponseEntity<CommentsDTO> receivingAdComments(@PathVariable int id) {
-        return ResponseEntity.ok(adsService.getComments(id));
+        return ResponseEntity.ok(commentService.getComments(id));
     }
 
     @Operation(summary = "Добавление комментария к объявлению")
@@ -29,13 +28,13 @@ public class CommentController {
     public ResponseEntity<CommentDTO> addComment(@PathVariable Integer id,
                                                  @RequestBody CreateCommentDTO createComment,
                                                  Authentication authentication) {
-        return ResponseEntity.ok(adsService.addComment(id, createComment, authentication.getName()));
+        return ResponseEntity.ok(commentService.addComment(id, createComment, authentication.getName()));
     }
 
     @Operation(summary = "Удаление комментария")
     @DeleteMapping("/{adId}/comments/{commentId}")
     public ResponseEntity<?> deleteComment(@PathVariable Integer adId, @PathVariable Integer commentId) {
-        adsService.deleteComment(adId, commentId);
+        commentService.deleteComment(adId, commentId);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
@@ -44,6 +43,6 @@ public class CommentController {
     public ResponseEntity<CommentDTO> updateComment(@PathVariable Integer adId,
                                                     @PathVariable Integer commentId,
                                                     @RequestBody CreateCommentDTO createComment) {
-        return ResponseEntity.ok(adsService.updateComment(adId, commentId, createComment));
+        return ResponseEntity.ok(commentService.updateComment(adId, commentId, createComment));
     }
 }
