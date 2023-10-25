@@ -17,5 +17,3 @@ public class UserDTO {
     String phone;
     String image;
 }
-
-//Пример того, как работает коммит в форк
