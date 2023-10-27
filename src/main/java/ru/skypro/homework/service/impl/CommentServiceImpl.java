@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CommentServiceImpl extends CommentService {
+public class CommentServiceImpl implements CommentService {
 
     private final AdsRepository adsRepository;
     private final CommentRepository commentRepository;
@@ -29,7 +29,7 @@ public class CommentServiceImpl extends CommentService {
     @Override
     public CommentsDTO getComments(Integer id) {
         List<CommentEntity> commentList = commentRepository.findAll();
-        return commentMapper.toListsDto(commentList);
+        return getCommentsDTO(commentList);
     }
 
     //Добавляет новый комментарий к объявлению.
@@ -40,7 +40,7 @@ public class CommentServiceImpl extends CommentService {
         CommentEntity comment = commentMapper.toCommentFromCreateComment(createComment);
         commentRepository.save(comment);
         log.trace("Added comment with id: ", comment.getId());
-        return commentMapper.toCommentDtoFromComment(comment);
+        return commentMapper.commentToCommentDto(comment);
     }
 
     //Удаляет комментарий по идентификаторам объявления и комментария.
@@ -59,7 +59,7 @@ public class CommentServiceImpl extends CommentService {
         comment.setText(createComment.getText());
         commentRepository.save(comment);
         log.trace("Updated comment with id: ", id);
-        return commentMapper.toCommentDtoFromComment(comment);
+        return commentMapper.commentToCommentDto(comment);
     }
 
 
@@ -68,7 +68,7 @@ public class CommentServiceImpl extends CommentService {
     public CommentDTO getCommentDto(Integer adId, Integer id) {
         CommentEntity comment = commentRepository.findCommentByIdAndAds_Id(id, adId)
                 .orElseThrow(() -> new CommentNotFoundException("Comment not found"));
-        return commentMapper.toCommentDtoFromComment(comment);
+        return commentMapper.commentToCommentDto(comment);
     }
 
     public String getUserNameOfComment(Integer id) {
@@ -76,4 +76,17 @@ public class CommentServiceImpl extends CommentService {
                 .orElseThrow(() -> new CommentNotFoundException("Comment not found"))
                 .getUser().getEmail();
     }
+
+    private CommentsDTO getCommentsDTO(List<CommentEntity> commentList) {
+        List<CommentDTO> commentDtoList = commentMapper.commentToCommentDto(commentList);
+        CommentsDTO commentsDTO = new CommentsDTO();
+        if (!commentDtoList.isEmpty()) {
+            commentsDTO.setCount(commentDtoList.size());
+            commentsDTO.setResults(commentDtoList);
+        }
+        return commentsDTO;
+    }
+
+
+
 }

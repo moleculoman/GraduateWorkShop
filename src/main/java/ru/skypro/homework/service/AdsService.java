@@ -8,7 +8,7 @@ import java.io.IOException;
 
 @Service
 public interface AdsService {
-    AdDTO getAllAds();
+    AdsDTO getAllAds();
     AdDTO getAdsMe(String email);
     AdDTO addAd(CreateAdsDTO createAds, String email, MultipartFile image);
     //Обновляет информацию об объявлении по его идентификатору.

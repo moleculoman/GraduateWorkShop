@@ -8,7 +8,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
+@Getter
+@Setter
 public class NewPasswordDTO {
     String currentPassword;
     String newPassword;

@@ -24,7 +24,7 @@ public class AdsController {
             @ApiResponse(responseCode = "200", description = "OK")
     })
     @GetMapping
-    public ResponseEntity<AdDTO> getAllAds() {
+    public ResponseEntity<AdsDTO> getAllAds() {
         return ResponseEntity.ok(adsService.getAllAds());
     }
 
