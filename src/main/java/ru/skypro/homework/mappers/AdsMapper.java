@@ -7,9 +7,8 @@ import ru.skypro.homework.service.entities.*;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface AdsMapper {
-    AdsMapper INSTANCE = Mappers.getMapper(AdsMapper.class );
     AdsEntity toAdsFromCreateAds(CreateAdsDTO createAds);
 
     @Mapping(source = "author.id", target = "author")

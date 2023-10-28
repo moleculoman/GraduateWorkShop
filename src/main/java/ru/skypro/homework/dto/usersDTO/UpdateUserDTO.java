@@ -7,8 +7,6 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Getter
-@Setter
 public class UpdateUserDTO {
     String firstName;
     String lastName;
