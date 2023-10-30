@@ -44,18 +44,5 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-    /**
-     * Метод по смене пароля
-     */
-    @PostMapping("/set_password")
-    public NewPassword setPassword(@RequestBody NewPassword newPassword, Authentication authentication) {
-        NewPassword resultPassword = new NewPassword();
-        authService.changePassword(
-                        authentication.getName(),
-                        newPassword.getCurrentPassword(),
-                        newPassword.getNewPassword()
-                )
-                .ifPresent(resultPassword::setCurrentPassword);
-        return resultPassword;
-    }
+
 }

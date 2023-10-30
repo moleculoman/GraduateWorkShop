@@ -15,7 +15,7 @@ import ru.skypro.homework.service.*;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RestController
 @RequestMapping("/user")
-/**
+/*
  * Контроллер для работы с информацией о пользователе
  */
 public class UserController {

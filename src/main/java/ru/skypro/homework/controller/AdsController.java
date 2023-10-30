@@ -21,6 +21,7 @@ import javax.xml.crypto.OctetStreamData;
 @RestController
 @RequestMapping("/ads")
 public class AdsController {
+    private final AdsService adsService;
     /**
      * Метод получения всех объявлений
      */
