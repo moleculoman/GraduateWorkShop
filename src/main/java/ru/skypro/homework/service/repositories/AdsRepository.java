@@ -6,6 +6,6 @@ import ru.skypro.homework.service.entities.UserEntity;
 import java.util.List;
 
 public interface AdsRepository extends JpaRepository<AdsEntity, Integer> {
-    //List<AdsEntity> findByUser(UserEntity user);
+    List<AdsEntity> findByUser(UserEntity user);
     AdsEntity findByEmail(String email);
 }

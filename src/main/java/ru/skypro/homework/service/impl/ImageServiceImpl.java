@@ -25,6 +25,21 @@ public class ImageServiceImpl extends ImageService {
     //Cохранение названия UUID картинки в БД и локально
 
     @Override
+    public ImageEntity saveImage(MultipartFile image, String name) {
+        return null;
+    }
+
+    @Override
+    public byte[] getImage(String name) throws IOException {
+        return new byte[0];
+    }
+
+    @Override
+    public void deleteFileIfNotNull(String path) {
+
+    }
+
+    @Override
     public ImageEntity downloadImage(MultipartFile image) {
         try {
             String imageId = UUID.randomUUID().toString();
