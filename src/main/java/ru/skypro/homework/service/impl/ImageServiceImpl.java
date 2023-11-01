@@ -12,7 +12,7 @@ import java.nio.file.*;
 import java.util.*;
 
 @Service
-public class ImageServiceImpl extends ImageService {
+public class ImageServiceImpl implements ImageService {
 
     private final ImageRepository imageRepository;
     private static final String DOWNLOAD_DIRECTORY = "src/main/resources/images/";
@@ -36,7 +36,6 @@ public class ImageServiceImpl extends ImageService {
 
     @Override
     public void deleteFileIfNotNull(String path) {
-
     }
 
     @Override
@@ -67,7 +66,6 @@ public class ImageServiceImpl extends ImageService {
         }
     }
 
-    @Override
     public ResponseEntity<byte[]> getUserImage(String id) {
         try {
             String imagePath = DOWNLOAD_DIRECTORY + id + ".jpg";

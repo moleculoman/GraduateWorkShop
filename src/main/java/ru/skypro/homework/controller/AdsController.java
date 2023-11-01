@@ -10,9 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import ru.skypro.homework.dto.adsDTO.*;
+import ru.skypro.homework.service.AdsService;
 
 
-import javax.xml.crypto.OctetStreamData;
 /**
  * Контроллер для работы c объявлениями
  */
