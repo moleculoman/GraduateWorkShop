@@ -61,8 +61,8 @@ public class CommentController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     @DeleteMapping("/{adId}/comments/{commentId}")
-    public ResponseEntity<?> deleteComment(@PathVariable Integer adId, @PathVariable Integer commentId) {
-        commentService.deleteComment(adId, commentId);
+    public ResponseEntity<?> deleteComment(@PathVariable Integer adId, @PathVariable Integer commentId,Authentication authentication) {
+        commentService.deleteComment(adId, commentId,authentication);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
     @Operation(summary = "Обновление комментария")

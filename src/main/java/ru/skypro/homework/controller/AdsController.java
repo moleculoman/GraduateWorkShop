@@ -30,8 +30,8 @@ public class AdsController {
             @ApiResponse(responseCode = "200", description = "OK")
     })
     @GetMapping
-    public ResponseEntity<AdsDTO> getAds(){
-        return ResponseEntity.ok(new AdsDTO());
+    public ResponseEntity<AdsDTO> getAllAds() {
+        return ResponseEntity.ok(adsService.getAllAds());
     }
     /**
      * Метод добавления всех объявлений
@@ -44,8 +44,10 @@ public class AdsController {
             @ApiResponse(responseCode = "401", description = "Unauthorized")}
     )
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<AdDTO> addAd(@RequestParam("properties") AdDTO ad, @RequestPart MultipartFile image) {
-        return ResponseEntity.ok(ad);
+    public ResponseEntity<AdDTO> addAd(Authentication authentication,
+                                       @RequestPart("properties") CreateAdsDTO createAds,
+                                       @RequestPart("image") MultipartFile image) {
+        return ResponseEntity.ok(adsService.addAd(createAds, authentication.getName(), image));
     }
     /**
      * Метод получения информации о объявлении
@@ -57,10 +59,9 @@ public class AdsController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<FullAdDTO> getInfoByAd(@PathVariable int id){
-        return ResponseEntity.ok(new FullAdDTO());
-    }
-    /**
+    public ResponseEntity<FullAdDTO> getAds(@PathVariable Integer id) {
+        return ResponseEntity.ok(adsService.getAds(id));
+    }    /**
      * Метод удаления объявления
      */
     @Operation(summary = "Удаление объявления")

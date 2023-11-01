@@ -6,7 +6,11 @@ import ru.skypro.homework.dto.usersDTO.Role;
 import javax.persistence.*;
 
 @Data
-@Entity(name = "users")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserEntity {
     @Id

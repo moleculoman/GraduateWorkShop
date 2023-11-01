@@ -1,5 +1,6 @@
 package ru.skypro.homework.service;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.adsDTO.*;
 import javax.transaction.Transactional;
@@ -14,7 +15,7 @@ public interface CommentService {
 
     //Удаляет комментарий по идентификаторам объявления и комментария.
     @Transactional
-    void deleteComment(Integer adId, Integer id);
+    void deleteComment(Integer adId, Integer id, Authentication authentication);
 
     //Обновляет текст комментария по идентификаторам объявления и комментария.
     CommentDTO updateComment(Integer adId, Integer id, CreateCommentDTO createComment);

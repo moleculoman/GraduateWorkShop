@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.*;
 import org.springframework.security.core.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.*;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.usersDTO.*;
@@ -45,8 +46,20 @@ public class UserController {
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
     @GetMapping("/me")
-    public ResponseEntity<UserDTO> getUser(Authentication authentication) {
-        return ResponseEntity.ok(userService.getUser(authentication.getName()));
+    public ResponseEntity<UserDTO> getUser() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication.getAuthorities().getClass());
+        System.out.println(authentication.getAuthorities());
+
+        // Проверка, имеет ли пользователь роль "ADMIN"
+        if (authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"))) {
+            System.out.println("ADMIN");
+        } else {
+            System.out.println("NOT ADMIN");
+        }
+        return null;
     }
 
     /**
