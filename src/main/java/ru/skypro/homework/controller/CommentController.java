@@ -2,6 +2,8 @@ package ru.skypro.homework.controller;
 
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.*;
 import lombok.experimental.*;
 import org.springframework.http.*;
@@ -24,6 +26,11 @@ public class CommentController {
      * Метод получения комментариев объявления
      */
     @Operation(summary = "Получение комментариев объявления")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
     @GetMapping("/{id}/comments")
     public ResponseEntity<CommentsDTO> receivingAdComments(@PathVariable int id) {
         return ResponseEntity.ok(commentService.getComments(id));
@@ -32,6 +39,11 @@ public class CommentController {
      * Метод добавления комментария к объявлению
      */
     @Operation(summary = "Добавление комментария к объявлению")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
     @PostMapping("/{id}/comments")
     public ResponseEntity<CommentDTO> addComment(@PathVariable Integer id,
                                                  @RequestBody CreateCommentDTO createComment,
@@ -42,15 +54,24 @@ public class CommentController {
      * Метод удаления комментария к объявлению
      */
     @Operation(summary = "Удаление комментария")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
     @DeleteMapping("/{adId}/comments/{commentId}")
     public ResponseEntity<?> deleteComment(@PathVariable Integer adId, @PathVariable Integer commentId) {
         commentService.deleteComment(adId, commentId);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
-    /**
-     * Метод добавления комментария
-     */
     @Operation(summary = "Обновление комментария")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
     @PatchMapping("/{adId}/comments/{commentId}")
     public ResponseEntity<CommentDTO> updateComment(@PathVariable Integer adId,
                                                     @PathVariable Integer commentId,
