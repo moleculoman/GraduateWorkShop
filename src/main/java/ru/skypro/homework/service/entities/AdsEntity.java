@@ -4,6 +4,9 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "ads")

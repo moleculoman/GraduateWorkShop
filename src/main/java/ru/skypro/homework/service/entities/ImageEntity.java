@@ -17,8 +17,4 @@ public class ImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String imageName;
-
-    public static byte[] getImage() {
-        return new byte[0];
-    }
 }

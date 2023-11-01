@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "comments")
 @Table(name = "comments")
 @FieldDefaults(level = AccessLevel.PRIVATE)
