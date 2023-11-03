@@ -1,7 +1,7 @@
-package ru.skypro.homework.service.repositories;
+package ru.skypro.homework.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.skypro.homework.service.entities.UserEntity;
+import ru.skypro.homework.entities.UserEntity;
 
 import java.util.Optional;
 

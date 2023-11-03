@@ -1,4 +1,4 @@
-package ru.skypro.homework.service.entities;
+package ru.skypro.homework.entities;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import javax.persistence.*;

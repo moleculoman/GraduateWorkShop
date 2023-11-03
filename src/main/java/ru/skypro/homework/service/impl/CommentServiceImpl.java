@@ -4,11 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.adsDTO.*;
+import ru.skypro.homework.entities.AdsEntity;
+import ru.skypro.homework.entities.CommentEntity;
 import ru.skypro.homework.exceptions.*;
 import ru.skypro.homework.mappers.*;
+import ru.skypro.homework.repositories.AdsRepository;
+import ru.skypro.homework.repositories.CommentRepository;
 import ru.skypro.homework.service.*;
-import ru.skypro.homework.service.entities.*;
-import ru.skypro.homework.service.repositories.*;
 
 
 import javax.transaction.Transactional;
@@ -51,7 +53,7 @@ public class CommentServiceImpl implements CommentService {
 
     //Обновляет текст комментария по идентификаторам объявления и комментария.
     @Override
-    public CommentDTO updateComment(Integer adId, Integer id, CreateCommentDTO createComment) {
+    public CommentDTO updateComment(Integer adId, Integer id, CreateCommentDTO createComment, Authentication authentication) {
         CommentEntity comment = commentRepository.findCommentByIdAndAds_Id(id, adId)
                 .orElseThrow(() -> new CommentNotFoundException("Comment not found"));
         comment.setText(createComment.getText());

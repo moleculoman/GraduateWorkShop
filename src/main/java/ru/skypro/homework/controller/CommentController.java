@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.*;
 import lombok.experimental.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.adsDTO.*;
 import ru.skypro.homework.service.*;
@@ -15,6 +17,7 @@ import ru.skypro.homework.service.*;
 /**
  * Контроллер для работы с комментариями
  */
+@Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RestController
@@ -61,7 +64,9 @@ public class CommentController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     @DeleteMapping("/{adId}/comments/{commentId}")
-    public ResponseEntity<?> deleteComment(@PathVariable Integer adId, @PathVariable Integer commentId,Authentication authentication) {
+    public ResponseEntity<?> deleteComment(Authentication authentication,
+                                           @PathVariable Integer adId,
+                                           @PathVariable Integer commentId) {
         commentService.deleteComment(adId, commentId,authentication);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
@@ -73,9 +78,10 @@ public class CommentController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     @PatchMapping("/{adId}/comments/{commentId}")
-    public ResponseEntity<CommentDTO> updateComment(@PathVariable Integer adId,
+    public ResponseEntity<CommentDTO> updateComment(Authentication authentication,
+                                                    @PathVariable Integer adId,
                                                     @PathVariable Integer commentId,
                                                     @RequestBody CreateCommentDTO createComment) {
-        return ResponseEntity.ok(commentService.updateComment(adId, commentId, createComment));
+        return ResponseEntity.ok(commentService.updateComment(adId, commentId, createComment,authentication));
     }
 }

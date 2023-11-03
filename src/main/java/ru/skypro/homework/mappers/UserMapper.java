@@ -3,7 +3,7 @@ package ru.skypro.homework.mappers;
 import org.mapstruct.*;
 import ru.skypro.homework.dto.Register;
 import ru.skypro.homework.dto.usersDTO.*;
-import ru.skypro.homework.service.entities.UserEntity;
+import ru.skypro.homework.entities.UserEntity;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

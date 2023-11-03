@@ -3,7 +3,7 @@ package ru.skypro.homework.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.skypro.homework.service.entities.UserEntity;
+import ru.skypro.homework.entities.UserEntity;
 import java.util.Collection;
 import java.util.Collections;
 
