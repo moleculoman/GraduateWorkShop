@@ -18,7 +18,7 @@ public interface CommentService {
     void deleteComment(Integer adId, Integer id, Authentication authentication);
 
     //Обновляет текст комментария по идентификаторам объявления и комментария.
-    CommentDTO updateComment(Integer adId, Integer id, CreateCommentDTO createComment);
+    CommentDTO updateComment(Integer adId, Integer id, CreateCommentDTO createComment, Authentication authentication);
 
     //Получает объект CommentDto по идентификаторам объявления и комментария.
     CommentDTO getCommentDto(Integer adId, Integer id);

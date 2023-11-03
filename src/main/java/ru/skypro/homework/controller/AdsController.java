@@ -5,17 +5,20 @@ import io.swagger.v3.oas.annotations.media.*;
 import io.swagger.v3.oas.annotations.responses.*;
 import lombok.*;
 import lombok.experimental.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import ru.skypro.homework.dto.adsDTO.*;
-import ru.skypro.homework.service.AdsService;
+import ru.skypro.homework.security.SecurityService;
+import ru.skypro.homework.service.*;
 
 
 /**
  * Контроллер для работы c объявлениями
  */
+@Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RestController
@@ -72,8 +75,9 @@ public class AdsController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> removeAd(@PathVariable Integer id) {
-        adsService.removeAd(id);
+    public ResponseEntity<?> removeAd(@PathVariable Integer id,
+                                      Authentication authentication) {
+        adsService.removeAd(id,authentication);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
     /**
@@ -89,8 +93,9 @@ public class AdsController {
     })
     @PatchMapping("/{id}")
     public ResponseEntity<AdDTO> updateInfoByAd(@RequestBody CreateAdsDTO createAds,
-                                            @PathVariable Integer id) {
-        return ResponseEntity.ok(adsService.updateAds(createAds, id));
+                                            @PathVariable Integer id,
+                                            Authentication authentication) {
+        return ResponseEntity.ok(adsService.updateAds(createAds, id,authentication));
     }
     /**
      * Метод получения объявлений авторизованного пользователя
@@ -117,8 +122,11 @@ public class AdsController {
             @ApiResponse(responseCode = "404", description = "Not found"),
     })
     @PatchMapping(value = "/{id}/image" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> updateAdsImage(@PathVariable Integer id, @RequestParam MultipartFile image) {
-        adsService.updateAdsImage(id, image);
+    public ResponseEntity<?> updateAdsImage(@PathVariable Integer id,
+                                            @RequestParam MultipartFile image,
+                                            Authentication authentication)
+    {
+        adsService.updateAdsImage(id, image,authentication);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 }

@@ -2,16 +2,15 @@ package ru.skypro.homework.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.usersDTO.*;
 import ru.skypro.homework.exceptions.*;
-import ru.skypro.homework.mappers.UserMapper;
+import ru.skypro.homework.mappers.*;
 import ru.skypro.homework.service.*;
-import ru.skypro.homework.service.entities.UserEntity;
-import ru.skypro.homework.service.repositories.UserRepository;
+import ru.skypro.homework.entities.*;
+import ru.skypro.homework.repositories.*;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -45,7 +44,6 @@ public class UserServiceImpl implements UserService {
     }
 
     //Получает объект UserDto по адресу электронной почты пользователя.
-    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public UserDTO getUser(String email) {
         UserEntity user = userRepository.findByEmail(email)

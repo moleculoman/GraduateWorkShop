@@ -1,17 +1,19 @@
 package ru.skypro.homework.security;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.exceptions.AdsNotFoundException;
 import ru.skypro.homework.exceptions.CommentNotFoundException;
-import ru.skypro.homework.service.entities.AdsEntity;
-import ru.skypro.homework.service.entities.CommentEntity;
-import ru.skypro.homework.service.repositories.AdsRepository;
-import ru.skypro.homework.service.repositories.CommentRepository;
+import ru.skypro.homework.entities.AdsEntity;
+import ru.skypro.homework.entities.CommentEntity;
+import ru.skypro.homework.repositories.AdsRepository;
+import ru.skypro.homework.repositories.CommentRepository;
 
 import java.util.Optional;
 
+@Log4j2
 @Service
 public class SecurityService {
 
@@ -50,7 +52,7 @@ public class SecurityService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            System.out.println(authentication.getAuthorities());
+            log.info(authentication.getAuthorities());
             return true;
         }
 

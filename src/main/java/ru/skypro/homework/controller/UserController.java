@@ -1,6 +1,7 @@
 package ru.skypro.homework.controller;
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.responses.*;
+import lombok.extern.log4j.Log4j2;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.usersDTO.*;
 import ru.skypro.homework.service.*;
 
+@Log4j2
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RestController
@@ -49,17 +51,17 @@ public class UserController {
     public ResponseEntity<UserDTO> getUser() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication.getAuthorities().getClass());
-        System.out.println(authentication.getAuthorities());
+        log.info(authentication.getAuthorities().getClass());
+        log.info(authentication.getAuthorities());
 
         // Проверка, имеет ли пользователь роль "ADMIN"
-        if (authentication.getAuthorities().stream()
+        /*if (authentication.getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"))) {
-            System.out.println("ADMIN");
+            log.info("ADMIN");
         } else {
-            System.out.println("NOT ADMIN");
-        }
-        return null;
+            log.info("NOT ADMIN");
+        }*/
+        return getUser();
     }
 
     /**

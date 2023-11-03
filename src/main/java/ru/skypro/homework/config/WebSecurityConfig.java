@@ -20,7 +20,6 @@ public class WebSecurityConfig {
             "/login",
             "/register",
             "/ads",
-            "/images"
     };
 
     @Bean
@@ -32,7 +31,7 @@ public class WebSecurityConfig {
                                 authorization
                                         .mvcMatchers(AUTH_WHITELIST)
                                         .permitAll()
-                                        .mvcMatchers("/ads/**", "/users/**")
+                                        .mvcMatchers("/ads/**", "/user/**", "/images/**")
                                         .authenticated())
                 .cors()
                 .and()
