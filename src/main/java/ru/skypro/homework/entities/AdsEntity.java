@@ -19,7 +19,7 @@ public class AdsEntity {
     String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image")
-    ImageEntity image;
+    byte [] image;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     UserEntity user;

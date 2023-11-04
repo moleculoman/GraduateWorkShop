@@ -14,5 +14,5 @@ public class UserDTO {
     String firstName;
     String email;
     String phone;
-    String image;
+    byte [] image;
 }

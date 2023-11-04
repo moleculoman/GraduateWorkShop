@@ -16,4 +16,14 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "image", ignore = true)
     void updateUserFromUserDto(UserDTO userDto, @MappingTarget UserEntity user);
+
+     static UserEntity customUserDetailsToUser(UserDTO userDTO) {
+        UserEntity user = new UserEntity();
+        user.setId(userDTO.getId());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setPhone(userDTO.getPhone());
+        user.setImage(userDTO.getImage());
+        return user;
+    }
 }
