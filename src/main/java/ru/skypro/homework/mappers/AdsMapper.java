@@ -1,8 +1,10 @@
 package ru.skypro.homework.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import ru.skypro.homework.dto.adsDTO.*;
 import ru.skypro.homework.entities.AdsEntity;
+import ru.skypro.homework.entities.ImageEntity;
 
 import java.util.List;
 
@@ -10,21 +12,29 @@ import java.util.List;
 public interface AdsMapper {
     AdsEntity toAdsFromCreateAds(CreateAdsDTO createAds);
 
-    @Mapping(source = "author.id", target = "author")
+    @Mapping(target = "author",qualifiedByName = "mapImageEntityToString", source = "user.id")
+    @Named("mapImageEntityToString")
+    default String mapImageEntityToString(ImageEntity imageEntity) {
+        return imageEntity != null ? (imageEntity.toString()) : null;
+    }
     AdDTO adsToAdsDto(AdsEntity ads);
+                                          ///target - куда, source - откуда
+           ///AdDTO - куда переносим, AdsEntity - откуда
     List<AdDTO> adsToAdsDto(List<AdsEntity> ads);
 
-    @Mapping(source = "author", target = "author.id")
-    @Mapping(target = "description", ignore = true)
+
+    @Mapping(target = "user.id",source = "author")
     AdsEntity adsDtoToAds(AdDTO adsDto);
     List<AdsEntity> adsDtoToAds(List<AdDTO> adsDto);
 
     @Mapping(target = "pk", source = "id")
-    @Mapping(target = "authorFirstName", source = "users.firstName")
-    @Mapping(target = "authorLastName", source = "users.lastName")
-    @Mapping(target = "email", source = "users.email")
-    @Mapping(target = "phone", source = "users.phone")
+    @Mapping(target = "authorFirstName", source = "user.firstName")
+    @Mapping(target = "authorLastName", source = "user.lastName")
+    @Mapping(target = "email", source = "user.email")
+    @Mapping(target = "phone", source = "user.phone")
     FullAdDTO toFullAds(AdsEntity fullAds);
     AdsEntity createAdsToAds(CreateAdsDTO createAds);
     AdDTO updateAds(CreateAdsDTO createAds);
+
+
 }
