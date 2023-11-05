@@ -9,19 +9,15 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
-    @Mapping(target = "author", source = "user_id")
+    @Mapping(target = "author", source = "user.id")
     @Mapping(target = "pk", source = "id")
     CommentDTO commentToCommentDto(CommentEntity Comment);
     List<CommentDTO> commentToCommentDto(List<CommentEntity> Comment);
     CommentEntity toCommentFromCreateComment(CreateCommentDTO createCommentDTO);
 
-    @Mapping(target = "author", source = "userEntity.id")
-    @Mapping(target = "authorImage", source = "userEntity.image")
-    @Mapping(target = "authorFirstName", source = "userEntity.firstName")
+    @Mapping(target = "user.image", source = "authorImage")
+    @Mapping(target = "user.firstName", source = "authorFirstName")
     @Mapping(target = "id", source = "pk")
-    @Mapping(target = "userEntity.id", ignore = true)
-    @Mapping(target = "userEntity.image",ignore = true)
-    @Mapping(target = "userEntity.firstName",ignore = true)
     CommentEntity commentDtoToComment(CommentDTO CommentDTO);
     List<CommentEntity> commentDtoToComment(List<CommentDTO> adsCommentDto);
     CommentDTO updateComment(CommentDTO commentDto);
