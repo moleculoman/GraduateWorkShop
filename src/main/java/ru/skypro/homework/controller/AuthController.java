@@ -10,15 +10,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.skypro.homework.dto.*;
 import ru.skypro.homework.service.AuthService;
-
+/**
+ * Контроллер для работы с авторизацией
+ */
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
-
+    /**
+     * Сервис для работы с аворизацией
+     */
     private final AuthService authService;
-
+    /**
+     * Метод по авторизации
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Login login) {
         if (authService.login(login.getUsername(), login.getPassword())) {
@@ -27,7 +33,9 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
+    /**
+     * Метод по регистрации
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Register register) {
         if (authService.register(register)) {
@@ -36,4 +44,5 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package ru.skypro.homework.service.entities;
+package ru.skypro.homework.entities;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -6,18 +6,27 @@ import ru.skypro.homework.dto.usersDTO.Role;
 import javax.persistence.*;
 
 @Data
-@Entity(name = "users")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "users_list")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
+    @Column(name = "email")
     String email;
+    @Column(name = "password")
     String password;
+    @Column(name = "firstName")
     String firstName;
+    @Column(name = "lastName")
     String lastName;
+    @Column(name = "phone")
     String phone;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image")
     ImageEntity image;
     @Enumerated(EnumType.STRING)

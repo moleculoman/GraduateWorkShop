@@ -1,4 +1,4 @@
-package ru.skypro.homework.service.entities;
+package ru.skypro.homework.entities;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -16,6 +16,6 @@ public class ImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "imageName")
     private String imageName;
-
 }

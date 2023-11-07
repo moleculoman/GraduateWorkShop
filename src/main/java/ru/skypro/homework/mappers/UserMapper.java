@@ -3,15 +3,19 @@ package ru.skypro.homework.mappers;
 import org.mapstruct.*;
 import ru.skypro.homework.dto.Register;
 import ru.skypro.homework.dto.usersDTO.*;
-import ru.skypro.homework.service.entities.UserEntity;
+import ru.skypro.homework.entities.UserEntity;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    @Mapping(source = "username", target = "email")
+    ///target - куда, source - откуда
+    ///AdDTO - куда переносим, AdsEntity - откуда
+    @Mapping(target = "email", source = "username")
     UserEntity toUser(Register register);
 
-    UserDTO toUserDto(UserEntity user);
+    default UserDTO toUserDto(UserEntity user) {
+        return null;
+    }
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "image", ignore = true)

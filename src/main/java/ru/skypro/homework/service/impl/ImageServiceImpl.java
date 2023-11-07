@@ -3,16 +3,16 @@ package ru.skypro.homework.service.impl;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.skypro.homework.entities.ImageEntity;
+import ru.skypro.homework.repositories.ImageRepository;
 import ru.skypro.homework.service.*;
-import ru.skypro.homework.service.entities.*;
-import ru.skypro.homework.service.repositories.*;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
 @Service
-public class ImageServiceImpl extends ImageService {
+public class ImageServiceImpl implements ImageService {
 
     private final ImageRepository imageRepository;
     private static final String DOWNLOAD_DIRECTORY = "src/main/resources/images/";
@@ -36,7 +36,6 @@ public class ImageServiceImpl extends ImageService {
 
     @Override
     public void deleteFileIfNotNull(String path) {
-
     }
 
     @Override
@@ -67,7 +66,6 @@ public class ImageServiceImpl extends ImageService {
         }
     }
 
-    @Override
     public ResponseEntity<byte[]> getUserImage(String id) {
         try {
             String imagePath = DOWNLOAD_DIRECTORY + id + ".jpg";

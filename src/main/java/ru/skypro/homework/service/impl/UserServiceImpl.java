@@ -6,12 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.usersDTO.*;
-import ru.skypro.homework.exceptions.UserNotFoundException;
-import ru.skypro.homework.exceptions.UserWithEmailNotFoundException;
+import ru.skypro.homework.exceptions.*;
 import ru.skypro.homework.mappers.*;
 import ru.skypro.homework.service.*;
-import ru.skypro.homework.service.entities.*;
-import ru.skypro.homework.service.repositories.*;
+import ru.skypro.homework.entities.*;
+import ru.skypro.homework.repositories.*;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -69,7 +68,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserWithEmailNotFoundException(email));
         imageService.deleteFileIfNotNull(String.valueOf(user.getImage()));
-        user.setImage(imageService.saveImage(image, "/users"));
+        user.setImage(imageService.saveImage(image, "/users_list"));
         userRepository.save(user);
         log.trace("Avatar updated");
     }

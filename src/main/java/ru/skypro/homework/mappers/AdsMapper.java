@@ -1,31 +1,46 @@
 package ru.skypro.homework.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Named;
 import ru.skypro.homework.dto.adsDTO.*;
-import ru.skypro.homework.service.entities.*;
+import ru.skypro.homework.entities.AdsEntity;
+import ru.skypro.homework.entities.ImageEntity;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AdsMapper {
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "image", ignore = true)
+    @Mapping(target = "id", ignore = true)
     AdsEntity toAdsFromCreateAds(CreateAdsDTO createAds);
 
-    @Mapping(source = "author.id", target = "author")
+    @Named("imageToPathString")
+    default String imageToPathString(ImageEntity image) {
+        return image != null ? ("/ads/image/" + image.getId()) : null;
+    }
+
+    @Mapping(target = "image", source = "image", qualifiedByName = "imageToPathString")
+    @Mapping(target = "pk", source = "id")
+    @Mapping(target = "author", source = "user.id")
     AdDTO adsToAdsDto(AdsEntity ads);
     List<AdDTO> adsToAdsDto(List<AdsEntity> ads);
 
-    @Mapping(source = "author", target = "author.id")
-    @Mapping(target = "description", ignore = true)
+    /*@Mapping(target = "user.id",source = "author")
+    @Mapping(target = "image", source = "image", qualifiedByName = "imageToPathString")
     AdsEntity adsDtoToAds(AdDTO adsDto);
-    List<AdsEntity> adsDtoToAds(List<AdDTO> adsDto);
+    List<AdsEntity> adsDtoToAds(List<AdDTO> adsDto);*/
 
     @Mapping(target = "pk", source = "id")
-    @Mapping(target = "authorFirstName", source = "userEntity.firstName")
-    @Mapping(target = "authorLastName", source = "userEntity.lastName")
-    @Mapping(target = "email", source = "userEntity.email")
-    @Mapping(target = "phone", source = "userEntity.phone")
+    @Mapping(target = "authorFirstName", source = "user.firstName")
+    @Mapping(target = "authorLastName", source = "user.lastName")
+    @Mapping(target = "email", source = "user.email")
+    @Mapping(target = "phone", source = "user.phone")
+    @Mapping(target = "image", source = "image", qualifiedByName = "imageToPathString")
+
     FullAdDTO toFullAds(AdsEntity fullAds);
     AdsEntity createAdsToAds(CreateAdsDTO createAds);
     AdDTO updateAds(CreateAdsDTO createAds);
+
+
 }

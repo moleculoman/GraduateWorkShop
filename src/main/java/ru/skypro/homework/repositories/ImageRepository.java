@@ -1,9 +1,7 @@
-package ru.skypro.homework.service.repositories;
+package ru.skypro.homework.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.skypro.homework.service.entities.ImageEntity;
-
-import java.util.List;
+import ru.skypro.homework.entities.ImageEntity;
 
 public interface ImageRepository extends JpaRepository<ImageEntity, Integer> {
 }

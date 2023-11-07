@@ -2,14 +2,17 @@ package ru.skypro.homework.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.adsDTO.*;
+import ru.skypro.homework.entities.AdsEntity;
+import ru.skypro.homework.entities.UserEntity;
 import ru.skypro.homework.exceptions.*;
 import ru.skypro.homework.mappers.*;
+import ru.skypro.homework.repositories.AdsRepository;
+import ru.skypro.homework.repositories.CommentRepository;
 import ru.skypro.homework.service.*;
-import ru.skypro.homework.service.entities.*;
-import ru.skypro.homework.service.repositories.*;
 import javax.transaction.Transactional;
 import java.io.*;
 import java.util.*;
@@ -34,8 +37,8 @@ public class AdsServiceImpl implements AdsService {
     // Получает список объявлений, принадлежащих пользователю с указанным адресом электронной почты.
 
     @Override
-    public AdDTO getAdsMe(String email) {
-        return adsMapper.adsToAdsDto(adsRepository.findByEmail(email));
+    public AdDTO findAllByUser_Email(UserEntity user) {
+        return adsMapper.adsToAdsDto(adsRepository.findAllByUser_Email(user));
     }
 
     //Добавляет новое объявление в базу данных.
@@ -59,7 +62,7 @@ public class AdsServiceImpl implements AdsService {
 
     @Transactional
     @Override
-    public void removeAd(Integer id) {
+    public void removeAd(Integer id, Authentication authentication) {
         commentRepository.deleteAllByAds_Id(id);
         AdsEntity ads = adsRepository.findById(id)
                 .orElseThrow(() -> new AdsNotFoundException("Ads not found by id: " + id));
@@ -71,7 +74,7 @@ public class AdsServiceImpl implements AdsService {
 
     //Обновляет информацию об объявлении по его идентификатору.
     @Override
-    public AdDTO updateAds(CreateAdsDTO createAds, Integer id) {
+    public AdDTO updateAds(CreateAdsDTO createAds, Integer id, Authentication authentication) {
         AdsEntity ads = adsRepository.findById(id)
                 .orElseThrow(() -> new AdsNotFoundException("Ads not found by id: " + id));
         adsMapper.updateAds(createAds);
@@ -82,7 +85,7 @@ public class AdsServiceImpl implements AdsService {
 
     //Обновляет изображение объявления по его идентификатору.
     @Override
-    public void updateAdsImage(Integer id, MultipartFile image) {
+    public void updateAdsImage(Integer id, MultipartFile image, Authentication authentication) {
         AdsEntity ads = adsRepository.findById(id)
                 .orElseThrow(() -> new AdsNotFoundException("Ads not found"));
         imageService.deleteFileIfNotNull(String.valueOf(ads.getImage()));
