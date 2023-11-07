@@ -26,7 +26,7 @@ public class UserEntity {
     String lastName;
     @Column(name = "phone")
     String phone;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image")
     ImageEntity image;
     @Enumerated(EnumType.STRING)

@@ -24,11 +24,11 @@ public class AdsEntity {
     @Column(name = "description")
     String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image")
     ImageEntity image;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     UserEntity user;
 }
