@@ -25,5 +25,4 @@ public interface CommentService {
 
     //Получает объект CommentDto по идентификаторам объявления и комментария.
     CommentDTO getCommentDto(Integer adId, Integer commentId);
-
 }
