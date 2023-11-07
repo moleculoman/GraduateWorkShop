@@ -10,16 +10,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "users_list")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
+    @Column(name = "email")
     String email;
+    @Column(name = "password")
     String password;
+    @Column(name = "firstName")
     String firstName;
+    @Column(name = "lastName")
     String lastName;
+    @Column(name = "phone")
     String phone;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image")

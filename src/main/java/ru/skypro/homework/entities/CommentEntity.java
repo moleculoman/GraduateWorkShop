@@ -11,14 +11,16 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "comments")
+@Entity
 @Table(name = "comments")
 @FieldDefaults(level = AccessLevel.PRIVATE)
     public class CommentEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         Integer id;
+        @Column(name = "createdAt")
         LocalDateTime createdAt;
+        @Column(name = "text")
         String text;
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id")
