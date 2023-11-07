@@ -1,5 +1,6 @@
 package ru.skypro.homework.service;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.adsDTO.*;
@@ -15,12 +16,13 @@ public interface CommentService {
 
     //Удаляет комментарий по идентификаторам объявления и комментария.
     @Transactional
-    void deleteComment(Integer adId, Integer id, Authentication authentication);
+    @PreAuthorize("@securityService.canDeleteComment(#commentId, #adId)")
+    void deleteComment(Integer adId, Integer commentId, Authentication authentication);
 
     //Обновляет текст комментария по идентификаторам объявления и комментария.
-    CommentDTO updateComment(Integer adId, Integer id, CreateCommentDTO createComment, Authentication authentication);
+    @PreAuthorize("@securityService.canDeleteComment(#commentId, #adId)")
+    CommentDTO updateComment(Integer adId, Integer commentId, CreateCommentDTO createComment, Authentication authentication);
 
     //Получает объект CommentDto по идентификаторам объявления и комментария.
-    CommentDTO getCommentDto(Integer adId, Integer id);
-
+    CommentDTO getCommentDto(Integer adId, Integer commentId);
 }
