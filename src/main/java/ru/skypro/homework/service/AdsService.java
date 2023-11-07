@@ -4,13 +4,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.adsDTO.*;
+import ru.skypro.homework.entities.UserEntity;
 
 import java.io.IOException;
 
 @Service
 public interface AdsService {
     AdsDTO getAllAds();
-    AdDTO getAdsMe(String email);
+    AdDTO findAllByUser_Email(UserEntity user);
+
     AdDTO addAd(CreateAdsDTO createAds, String email, MultipartFile image);
     //Обновляет информацию об объявлении по его идентификатору.
     @PreAuthorize("@securityService.canRefAdd(#id)")

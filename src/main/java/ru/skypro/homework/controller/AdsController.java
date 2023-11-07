@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import ru.skypro.homework.dto.adsDTO.*;
+import ru.skypro.homework.entities.UserEntity;
 import ru.skypro.homework.security.SecurityService;
 import ru.skypro.homework.service.*;
 
@@ -107,8 +108,8 @@ public class AdsController {
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
     @GetMapping("/me")
-    public ResponseEntity<AdDTO> getAdsMe(Authentication authentication) {
-        return ResponseEntity.ok(adsService.getAdsMe(authentication.getName()));
+    public ResponseEntity<AdDTO> findAllByUser_Email(Authentication authentication) {
+        return ResponseEntity.ok(adsService.findAllByUser_Email(UserEntity.builder().build()));
     }
     /**
      * Метод обновления картинки объявления

@@ -22,10 +22,10 @@ import java.time.LocalDateTime;
         LocalDateTime createdAt;
         @Column(name = "text")
         String text;
-        @ManyToOne(fetch = FetchType.LAZY)
+        @OneToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id")
         UserEntity user;
-        @ManyToOne(fetch = FetchType.LAZY)
+        @OneToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "ads_id")
         AdsEntity ads;
 }
