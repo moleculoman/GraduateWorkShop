@@ -53,6 +53,8 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info(authentication.getAuthorities().getClass());
         log.info(authentication.getAuthorities());
+        UserDTO userDTO = userService.getUser(getUser().toString());
+        return ResponseEntity.ok().body(userDTO);
 
         // Проверка, имеет ли пользователь роль "ADMIN"
         /*if (authentication.getAuthorities().stream()
@@ -61,7 +63,6 @@ public class UserController {
         } else {
             log.info("NOT ADMIN");
         }*/
-        return getUser();
     }
 
     /**

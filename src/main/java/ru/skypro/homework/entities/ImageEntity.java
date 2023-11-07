@@ -16,5 +16,6 @@ public class ImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "imageName")
     private String imageName;
 }

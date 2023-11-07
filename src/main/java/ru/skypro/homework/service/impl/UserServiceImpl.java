@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserWithEmailNotFoundException(email));
         imageService.deleteFileIfNotNull(String.valueOf(user.getImage()));
-        user.setImage(imageService.saveImage(image, "/users"));
+        user.setImage(imageService.saveImage(image, "/users_list"));
         userRepository.save(user);
         log.trace("Avatar updated");
     }
